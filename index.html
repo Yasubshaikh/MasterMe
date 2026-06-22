@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#111827">
+    <meta name="description" content="MasterMe is a free competitive quiz and school learning app with GK, Math, Love GK, class 1 to 11 notes, video lessons, progress tracking, and admin-only editing.">
+    <meta name="keywords" content="MasterMe, free quiz app, GK quiz, school app, class notes, video lessons, love GK, educational game, competitive quiz">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="MasterMe - Free Competitive Quiz App">
+    <meta property="og:description" content="Play GK, Math, Love GK, and fun quiz challenges. Read class notes, open video lessons, track progress, and climb the leaderboard.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="icon.svg">
+    <title>MasterMe - Free Competitive Quiz App</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MasterMe",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Android, iOS, Windows, macOS",
+        "description": "A free competitive educational app with GK, Math, Love GK, class 1 to 11 notes, video lessons, progress tracking, levels, coins, leaderboards, referrals, and admin-only editing.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <button id="adminSecretTrigger" class="brand brand-trigger" type="button" aria-label="MasterMe">
+          <img src="icon.svg" alt="" width="42" height="42">
+          <div>
+            <strong>MasterMe</strong>
+            <span>Competitive learning arena</span>
+          </div>
+        </button>
+        <div class="top-actions">
+          <button id="installButton" class="ghost" type="button" hidden>Install</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-panel">
+          <div>
+            <p class="eyebrow">Free quiz app</p>
+            <h1>Win levels, coins, and leaderboard rank.</h1>
+          </div>
+          <div class="player-card">
+            <span id="playerName">Guest Player</span>
+            <strong>Level <b id="levelValue">1</b></strong>
+            <div class="xp-track" aria-label="Level progress">
+              <span id="xpTrack"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Player stats">
+          <div>
+            <span>XP</span>
+            <strong id="xpValue">0</strong>
+          </div>
+          <div>
+            <span>Coins</span>
+            <strong id="coinValue">0</strong>
+          </div>
+          <div>
+            <span>Shares</span>
+            <strong id="shareValue">0</strong>
+          </div>
+          <div>
+            <span>Streak</span>
+            <strong id="streakValue">0</strong>
+          </div>
+        </section>
+
+        <section class="control-strip" aria-label="Quiz controls">
+          <label>
+            Category
+            <select id="categoryFilter"></select>
+          </label>
+          <div class="daily-card">
+            <span>Daily Challenge</span>
+            <strong id="dailyChallengeText">Answer 3 questions correctly</strong>
+          </div>
+          <div class="daily-card">
+            <span>Reward</span>
+            <strong>+75 coins</strong>
+          </div>
+        </section>
+
+        <section class="learning-hub" aria-label="School learning hub">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">School app</p>
+              <h2>Class 1 to 11 Learning Hub</h2>
+            </div>
+            <button id="notifyProgressButton" class="ghost" type="button">Notify Progress</button>
+          </div>
+
+          <div class="learning-controls">
+            <label>
+              Select class
+              <select id="classFilter"></select>
+            </label>
+            <div class="daily-card">
+              <span>Class Progress</span>
+              <strong id="classProgressText">0% complete</strong>
+            </div>
+            <div class="daily-card">
+              <span>Completed Lessons</span>
+              <strong id="lessonCompleteText">0 lessons</strong>
+            </div>
+          </div>
+
+          <div class="learning-grid">
+            <article class="study-panel">
+              <div class="section-title compact">
+                <h3>Notes</h3>
+                <span id="notesCount">0 notes</span>
+              </div>
+              <div id="notesList" class="content-list"></div>
+            </article>
+
+            <article class="study-panel">
+              <div class="section-title compact">
+                <h3>Class Videos</h3>
+                <span id="videosCount">0 videos</span>
+              </div>
+              <div id="videoList" class="content-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="arena">
+          <div class="arena-head">
+            <div>
+              <p class="eyebrow" id="categoryLabel">GK</p>
+              <h2 id="questionNumber">Question 1</h2>
+            </div>
+            <div class="timer" id="timerValue">20s</div>
+          </div>
+
+          <p id="questionText" class="question-text">Loading question...</p>
+
+          <div id="options" class="options" aria-label="Answer options"></div>
+
+          <div class="result-row">
+            <p id="resultText">Choose the best answer.</p>
+            <button id="nextButton" class="primary" type="button">Next</button>
+          </div>
+        </section>
+
+        <section class="achievements">
+          <div class="section-title">
+            <h2>Achievements</h2>
+            <span id="achievementCount">0 unlocked</span>
+          </div>
+          <div id="achievementList" class="achievement-list"></div>
+        </section>
+
+        <section class="leaderboard">
+          <div class="section-title">
+            <h2>Live Leaderboard</h2>
+            <button id="shareButton" class="secondary" type="button">Share App +50</button>
+          </div>
+          <div id="leaderboardList" class="rank-list"></div>
+        </section>
+
+        <section class="ad-ready-panel" aria-label="Advertisement">
+          <span>Advertisement</span>
+          <div class="ad-slot" id="googleAdSlot">
+            <strong>Sponsored learning space</strong>
+            <p>Ad space reserved for approved partners.</p>
+          </div>
+        </section>
+
+        <section class="seo-section">
+          <h2>MasterMe Free Quiz App</h2>
+          <p>MasterMe is a free downloadable quiz and school web app for GK, current affairs, math, science, love GK, fun brain challenges, class notes, and video lessons. Players can answer questions, level up, earn coins, unlock achievements, share notes, and compete on a live-style leaderboard.</p>
+          <p>The app can be installed from a mobile browser as a free home-screen app. Admin-only editing lets the owner add new questions, change answers, manage school notes and videos, and export app content.</p>
+          <nav class="site-links" aria-label="Site pages">
+            <a href="about.html">About</a>
+            <a href="privacy.html">Privacy</a>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="adminDialog" class="admin-dialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="eyebrow">Admin only</p>
+          <h2>Owner verification</h2>
+        </div>
+        <button class="icon-close" aria-label="Close" type="submit">x</button>
+      </form>
+
+      <section id="adminLogin" class="admin-login">
+        <label>
+          Owner phone
+          <input id="adminPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91 ********54">
+        </label>
+        <button id="sendAdminCodeButton" class="primary" type="button">Send verification code</button>
+        <div id="adminOtpArea" class="otp-area" hidden>
+          <label>
+            Verification code
+            <input id="adminCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6-digit code">
+          </label>
+          <button id="adminLoginButton" class="secondary" type="button">Verify owner</button>
+        </div>
+        <p id="adminLoginStatus" class="hint">Admin is hidden from students. Tap the MasterMe logo 7 times to open owner verification.</p>
+      </section>
+
+      <section id="adminPanel" class="admin-panel" hidden>
+        <div class="admin-section-title">
+          <h3>Quiz questions</h3>
+          <span>Add, edit, or delete quiz questions.</span>
+        </div>
+
+        <form id="questionForm" class="question-form">
+          <input id="editingQuestionId" type="hidden">
+          <label>
+            Question text
+            <textarea id="adminQuestionText" rows="3" required></textarea>
+          </label>
+
+          <div class="grid-two">
+            <label>Option A <input id="adminOptionA" required></label>
+            <label>Option B <input id="adminOptionB" required></label>
+            <label>Option C <input id="adminOptionC" required></label>
+            <label>Option D <input id="adminOptionD" required></label>
+          </div>
+
+          <div class="grid-three">
+            <label>
+              Correct
+              <select id="adminCorrect" required>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </label>
+            <label>
+              Difficulty
+              <input id="adminDifficulty" type="number" min="1" max="50" value="1" required>
+            </label>
+            <label>
+              Category
+              <input id="adminCategory" value="GK" required>
+            </label>
+          </div>
+
+          <label>
+            Explanation
+            <textarea id="adminExplanation" rows="2"></textarea>
+          </label>
+
+          <div class="admin-actions">
+            <button class="primary" type="submit">Save question</button>
+            <button id="newQuestionButton" class="secondary" type="button">New</button>
+            <button id="exportQuestionsButton" class="secondary" type="button">Export JSON</button>
+          </div>
+        </form>
+
+        <div id="adminQuestionList" class="admin-list"></div>
+
+        <div class="admin-section-title">
+          <h3>School notes and videos</h3>
+          <span>Only admin can edit class learning content in this prototype.</span>
+        </div>
+
+        <form id="schoolContentForm" class="question-form">
+          <input id="editingContentId" type="hidden">
+
+          <div class="grid-three">
+            <label>
+              Type
+              <select id="adminContentType" required>
+                <option value="note">Note</option>
+                <option value="video">Video</option>
+              </select>
+            </label>
+            <label>
+              Class
+              <select id="adminContentClass" required></select>
+            </label>
+            <label>
+              Subject
+              <input id="adminContentSubject" value="General" required>
+            </label>
+          </div>
+
+          <label>
+            Title
+            <input id="adminContentTitle" required>
+          </label>
+
+          <label>
+            Note text or video link
+            <textarea id="adminContentBody" rows="3" required></textarea>
+          </label>
+
+          <div class="admin-actions">
+            <button class="primary" type="submit">Save content</button>
+            <button id="newContentButton" class="secondary" type="button">New content</button>
+            <button id="exportSchoolButton" class="secondary" type="button">Export school JSON</button>
+          </div>
+        </form>
+
+        <div id="adminContentList" class="admin-list"></div>
+      </section>
+    </dialog>
+
+    <dialog id="adDialog" class="ad-dialog">
+      <div class="ad-box">
+        <p class="eyebrow">Interstitial Ad</p>
+        <h2>Ad break</h2>
+        <p>This fires after every 5 quiz reads. Connect AdMob or AdSense here when you publish.</p>
+        <button id="closeAdButton" class="primary" type="button">Continue</button>
+      </div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

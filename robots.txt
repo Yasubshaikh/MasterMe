@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://masterbeamish-treacle-c09db1.netlify.app/sitemap.xml

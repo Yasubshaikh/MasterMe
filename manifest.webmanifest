@@ -1,0 +1,18 @@
+{
+  "name": "MasterMe",
+  "short_name": "MasterMe",
+  "description": "A free class 1 to 11 learning and competitive quiz app with notes, videos, progress, sharing, levels, coins, and admin-only editing.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#111827",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
